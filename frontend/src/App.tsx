@@ -1,0 +1,67 @@
+import { useState } from 'react'
+import './App.css'
+import { Dashboard } from './pages/Dashboard'
+import { DictionaryManager } from './pages/DictionaryManager'
+
+type Page = 'dashboard' | 'dictionary'
+
+function App() {
+  const [currentPage, setCurrentPage] = useState<Page>('dashboard')
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {/* Header */}
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-gray-900">GENKO</h1>
+            <p className="text-sm text-gray-600">社内校正システム</p>
+          </div>
+        </div>
+      </header>
+
+      {/* Navigation */}
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-8">
+            <button
+              onClick={() => setCurrentPage('dashboard')}
+              className={`py-4 px-2 border-b-2 font-medium text-sm ${
+                currentPage === 'dashboard'
+                  ? 'border-primary-600 text-primary-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              ダッシュボード
+            </button>
+            <button
+              onClick={() => setCurrentPage('dictionary')}
+              className={`py-4 px-2 border-b-2 font-medium text-sm ${
+                currentPage === 'dictionary'
+                  ? 'border-primary-600 text-primary-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              用語辞書管理
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {currentPage === 'dashboard' && <Dashboard />}
+        {currentPage === 'dictionary' && <DictionaryManager />}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-gray-500">
+          <p>&copy; 2026 GENKO. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default App
